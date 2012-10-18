@@ -1,0 +1,70 @@
+#!/usr/bin/env perl
+
+use Time::HiRes "time";
+use File::Temp qw/ tempfile tempdir /;
+use Getopt::Long;
+
+# Open the file to create the report
+open FD, '>>' , '/tmp/reto-logbenchmark';
+
+# Some example values 
+$comentario = "nothing to say";
+$numeroficheros = 10;
+$megas = 100;
+# Solve with elegance in the future
+$nombremaquina = `ip addr show eth0 | grep "inet " | cut -d " " -f6 | cut -d "/" -f1`;
+
+# GetOpts
+GetOptions("numficheros|n:s"=>\$numeroficheros,
+		'megas|m:s'=>\$megas,
+		'destino|d=s'=>\$destino,
+		'comentario|c:s'=>\$comentario,
+		'tipo|t=s'=>\$tipoOperacion,
+		'verbose|v:s'=>\$$verbose
+		);
+
+# Fix nombremaquina
+chomp($nombremaquina);
+
+$total = $megas * 1024;
+for($i = 0; $i < $numeroficheros; $i++ ){
+	$template = "/tmp/samba_".$nombremaquina."_XXXX";
+        my ($filedescriptor,$filename) = tempfile($template);
+        `dd if=/dev/zero of=$filename bs=1024 count=$total`;
+}
+
+if($verbose){
+	print "*********************************\n";
+	print "Preparando el entorno de ficheros\n";
+	print "numero de ficheros :: $numeroficheros\n";
+	print "megas  :: $megas\n";
+	print "destino  :: $destino\n";
+	print "comentario :: $comentario\n";
+	print "*********************************\n";
+	print "Procedemos al copiado de ficheros\n";
+	print "*********************************\n";
+	}
+
+my $a = time;
+
+$temporalFiles = "/tmp/samba_".$nombremaquina."*";
+`$tipoOperacion $temporalFiles $destino`;
+
+my $b = time;
+if ($verbose){
+	print "*************************************\n";
+	print "ficheros copiados. Preparando informe\n";
+	print "*************************************\n";
+	}
+
+$total = $b - $a;
+print FD "$numeroficheros,$megas,$tipo,$total,$destino,$comentario \n";
+close(FD);
+
+# Limpiando los trapos sucios
+# Local trash:
+`rm $temporalFiles`;
+
+# Destination trash
+$destinationTrash=$destino."samba_".$nombremaquina."*";
+`rm $destinationTrash`;

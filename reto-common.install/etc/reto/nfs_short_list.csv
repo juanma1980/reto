@@ -1,0 +1,11 @@
+1,100,/net/share/compartido/,NFS,cp
+1,100,/net/share/compartido/,NFS,rsync
+20,50,/net/share/compartido/,NFS,cp
+91,10,/net/share/compartido/,NFS,cp
+93,10,/net/share/compartido/,NFS,cp
+94,10,/net/share/compartido/,NFS,rsync
+100,1,/net/share/compartido/,NFS,cp
+150,1,/net/share/compartido/,NFS,cp
+257,1,/net/share/compartido/,NFS,rsync
+258,1,/net/share/compartido/,NFS,cp
+1000,1,/net/share/compartido/,NFS,rsync

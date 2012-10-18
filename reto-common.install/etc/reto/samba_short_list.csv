@@ -1,0 +1,11 @@
+1,100,/net/share/compartido/,SAMBA,cp
+1,100,/net/share/compartido/,SAMBA,rsync
+20,50,/net/share/compartido/,SAMBA,cp
+91,10,/net/share/compartido/,SAMBA,cp
+93,10,/net/share/compartido/,SAMBA,cp
+94,10,/net/share/compartido/,SAMBA,rsync
+100,1,/net/share/compartido/,SAMBA,cp
+150,1,/net/share/compartido/,SAMBA,cp
+257,1,/net/share/compartido/,SAMBA,rsync
+258,1,/net/share/compartido/,SAMBA,cp
+1000,1,/net/share/compartido/,SAMBA,rsync

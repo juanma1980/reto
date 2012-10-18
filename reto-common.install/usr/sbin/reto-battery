@@ -1,0 +1,39 @@
+#!/bin/bash
+
+
+show_usage()
+{
+	echo "[USAGE] : reto-battery PATH_TO_CSV [key-for-comment]"
+	echo ""
+	echo "[EXAMPLE]: reto-battery /etc/reto/nfs_short_list.csv 18equipos"
+	echo "[EXAMPLE]: reto-battery /etc/reto/samba_short_list.csv 13equipos"
+	exit 1
+}
+
+[ -z $1 ] && show_usage
+[ -f $1 ] || show_usage
+
+# Some values
+FILE_TO_READ="$1"
+COMMENT_TO_APPEND="$2"
+
+# the battery...
+# The file (.csv) has been declared with the next fields:
+# number of files, filesize in megabytes, destination folder, comment, operation must be executed (cp or rsync)
+# Good luck and thanks for all the fish!
+while read line ; do 
+	
+	numFich=$(echo $line|cut -d "," -f1)
+	megasFich=$(echo $line|cut -d "," -f2)
+	destinoFich=$(echo $line|cut -d "," -f3)
+	comentarioFich=$(echo $line|cut -d "," -f4)
+	tipoFich=$(echo $line|cut -d "," -f5)
+	reto -t $tipoFich -n $numFich -m $megasFich -d $destinoFich -c "$comentarioFich--$COMMENT_TO_APPEND"
+
+done < $FILE_TO_READ
+
+
+
+
+
+

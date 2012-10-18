@@ -1,0 +1,13 @@
+Source: reto
+Section: misc
+Priority: optional
+Maintainer: Raul Rodrigo Seguro <raurodse@gmail.com>
+Uploaders: Angel Berlanas Vicente <angel.berlanas@gmail.com>,Raul Rodrigo Segura <raurodse@gmail.com>
+Build-Depends: cdbs, debhelper (>= 7)
+Standards-Version: 3.8.4
+
+Package: reto-common
+Depends: perl
+Architecture: all
+Description: Reto Benchmarks
+ Reto benchmarks common files
